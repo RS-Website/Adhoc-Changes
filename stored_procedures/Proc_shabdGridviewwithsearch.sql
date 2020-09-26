@@ -7,11 +7,11 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
-ALTER proc [dbo].[Proc_shabdGridviewwithsearch]
-@Search as varchar(100)
+CREATE proc [dbo].[Proc_shabdGridviewwithsearch]
+@Search as nvarchar(100)
 as
 begin
-    Select * from Shabd_Table where ((Shabd_Name_Eng like '%'+@Search+'%') or( Book_Name_Hindi like '%'+@Search+'%') or (Book_Name_Eng like '%'+@Search+'%')
+    Select * from Shabd_Table where ((Shabd_Name_Eng like '%'+@Search+'%') or (Shabd_Name_Hindi like '%'+@Search+'%') or( Book_Name_Hindi like '%'+@Search+'%') or (Book_Name_Eng like '%'+@Search+'%')
 	or (Bachan like '%'+@Search+'%') or (Shabd like '%'+@Search+'%') or (SplOccasion_Eng like '%'+@Search+'%') or (SplOccasion_Hindi like '%'+@Search+'%')
 	or (File_Name like '%'+@Search+'%')	or (Link like '%'+@Search+'%')  )
 	order by Shabd_Name_Eng asc
