@@ -10,7 +10,7 @@ GO
 -- =============================================
 
 CREATE proc [dbo].[Proc_BachanGridviewwithsearch]
-@Search as varchar(100)
+@Search as nvarchar(100)
 as
 begin
     Select * from Bachan_Table where ((Author like '%'+@Search+'%') or( BookName_Hindi like '%'+@Search+'%') or (BookName_English like '%'+@Search+'%')
