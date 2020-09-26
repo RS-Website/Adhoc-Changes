@@ -10,10 +10,10 @@ GO
 -- =============================================
 
 CREATE proc [dbo].[Proc_videoCGridviewwithsearch]
-@Search as varchar(1000)
+@Search as nvarchar(1000)
 as
 BEGIN
-    Select * from Vclip_Table where ((Clip_Title_Eng like '%'+@Search+'%') or(Clip_Title_Hin like '%'+@Search+'%') or (Clip_Sum_Eng like '%'+@Search+'%')
+    Select * from Vclip_Table where ((Clip_Title_Eng like '%'+@Search+'%') or (Clip_Title_Hin like '%'+@Search+'%') or(Clip_Title_Hin like '%'+@Search+'%') or (Clip_Sum_Eng like '%'+@Search+'%')
 	or (Clip_Sum_Hin like '%'+@Search+'%') or (Remarks like '%'+@Search+'%'))
 	order by Clip_Title_Eng asc
 END
