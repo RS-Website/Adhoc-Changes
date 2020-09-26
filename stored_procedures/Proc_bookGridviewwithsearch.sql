@@ -11,10 +11,10 @@ GO
 
 CREATE proc [dbo].[Proc_bookGridviewwithsearch]
 
-@Author as varchar(1000),
-@Related as varchar(1000),
-@Language as varchar(1000),
-@Search as varchar(1000)
+@Author as nvarchar(1000),
+@Related as nvarchar(1000),
+@Language as nvarchar(1000),
+@Search as nvarchar(1000)
 as
 BEGIN
 
