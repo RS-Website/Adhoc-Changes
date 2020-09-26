@@ -8,10 +8,10 @@ GO
 
 
 CREATE proc [dbo].[Proc_santGridviewwithsearch]
-@Search as varchar(100)
+@Search as nvarchar(100)
 as
 begin
-    Select * from SantBani_Table where ((ShabdName_English like '%'+@Search+'%') or( Author_Hindi like '%'+@Search+'%') or (Author_English like '%'+@Search+'%')
+    Select * from SantBani_Table where ((ShabdName_English like '%'+@Search+'%') or (ShabdName_Hindi like '%'+@Search+'%') or( Author_Hindi like '%'+@Search+'%') or (Author_English like '%'+@Search+'%')
 	or (Category_Hindi like '%'+@Search+'%') or (category_English like '%'+@Search+'%') or (PartOfSankalan like '%'+@Search+'%') or (FileName like '%'+@Search+'%')
 	or (Link like '%'+@Search+'%') )
 	order by ShabdName_English asc
