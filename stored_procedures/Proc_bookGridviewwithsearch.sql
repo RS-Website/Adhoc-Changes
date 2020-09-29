@@ -1,6 +1,6 @@
 USE [RS_DB]
 GO
-/****** Object:  StoredProcedure [dbo].[Proc_bookGridviewwithsearch]    Script Date: 9/26/2020 12:00:15 PM ******/
+/****** Object:  StoredProcedure [dbo].[Proc_bookGridviewwithsearch]    Script Date: 9/30/2020 12:11:16 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16,109 +16,61 @@ CREATE proc [dbo].[Proc_bookGridviewwithsearch]
 @Language as nvarchar(1000),
 @Search as nvarchar(1000)
 as
+DECLARE @AuthorArg nvarchar(1000)
+DECLARE @RelatedArg nvarchar(1000)
+DECLARE @LanguageArg nvarchar(1000)
+DECLARE @SearchArg nvarchar(1000)
 BEGIN
 
-if @Author='null' and  @Related='null' and @Language='null' and  @Search='null'
-begin
- select * from Book_Table order by bnameeng asc
- end
- else if @Author='null' and  @Related='null' and @Language='null' and  @Search<>'null'
- begin 
-  select * from Book_Table where ((bNameEng like '%'+@Search+'%') or (bnamehin like  '%'+@Search+'%') or (authTransEng like '%'+@Search+'%'  ) 
- or (authTransHin like '%'+@Search+'%'  )  or (pubEng like '%'+@Search+'%' ) or  (pubHin like '%'+@Search+'%' ) or (pdfAvail like '%' +@Search+'%' )
- or (ebookAvail  like '%'+@Search+'%'  )  or (langEng like   '%'+@Search+'%'  ) or (langHin like   '%'+@Search+'%'  ) or (pdfLink like   '%'+@Search+'%'  )
- or (summaryHin like '%'+@Search+'%'  ) or (related like '%'+@Search+'%'  ) or (hwAvail like '%'+@Search+'%' ) 
- )  order by bnameeng asc
- end
-  else if @Author='null' and  @Related='null' and @Language<>'null' and  @Search='null'
- begin 
-  select * from Book_Table where (langEng like '%'+@Language+'%'  )   order by bnameeng asc
- 
- end
- else if @Author='null' and  @Related='null' and @Language<>'null' and  @Search<>'null'
- begin 
-  select * from Book_Table where (((bNameEng like '%'+@Search+'%') or (bnamehin like  '%'+@Search+'%') or (authTransEng like '%'+@Search+'%'  ) 
- or (authTransHin like '%'+@Search+'%'  )  or (pubEng like '%'+@Search+'%' ) or  (pubHin like '%'+@Search+'%' ) or (pdfAvail like '%' +@Search+'%' )
- or (ebookAvail  like '%'+@Search+'%'  )  or (langEng like   '%'+@Search+'%'  ) or (langHin like   '%'+@Search+'%'  ) or (pdfLink like   '%'+@Search+'%'  )
- or (summaryHin like '%'+@Search+'%'  ) or (related like '%'+@Search+'%'  ) or (hwAvail like '%'+@Search+'%' ))  and (langEng like '%'+@Language+'%'  ) 
- )  order by bnameeng asc
- end
- else if @Author='null' and  @Related<>'null' and @Language='null' and  @Search='null'
- begin 
-  select * from Book_Table where  (related like '%'+@Related+'%'  )  order by bnameeng asc
- 
- end
- else if @Author='null' and  @Related<>'null' and @Language='null' and  @Search<>'null'
- begin 
-  select * from Book_Table where (((bNameEng like '%'+@Search+'%') or (bnamehin like  '%'+@Search+'%') or (authTransEng like '%'+@Search+'%'  ) 
- or (authTransHin like '%'+@Search+'%'  )  or (pubEng like '%'+@Search+'%' ) or  (pubHin like '%'+@Search+'%' ) or (pdfAvail like '%' +@Search+'%' )
- or (ebookAvail  like '%'+@Search+'%'  )  or (langEng like   '%'+@Search+'%'  ) or (langHin like   '%'+@Search+'%'  ) or (pdfLink like   '%'+@Search+'%'  )
- or (summaryHin like '%'+@Search+'%'  ) or (related like '%'+@Search+'%'  ) ) and (related like @Related)
- )  order by bnameeng asc
- end
- else if @Author='null' and  @Related<>'null' and @Language<>'null' and  @Search='null'
- begin 
-  select * from Book_Table where ( (related like '%'+@Search+'%'  ) and (langEng like '%'+@Language+'%'  )  
- )  order by bnameeng asc
- end 
- else if @Author='null' and  @Related<>'null' and @Language<>'null' and  @Search<>'null'
- begin 
-  select * from Book_Table where ((bNameEng like '%'+@Search+'%') or (bnamehin like  '%'+@Search+'%') or (authTransEng like '%'+@Search+'%'  ) 
- or (authTransHin like '%'+@Search+'%'  )  or (pubEng like '%'+@Search+'%' ) or  (pubHin like '%'+@Search+'%' ) or (pdfAvail like '%' +@Search+'%' )
- or (ebookAvail  like '%'+@Search+'%'  )  or (langEng like   '%'+@Search+'%'  ) or (langHin like   '%'+@Search+'%'  ) or (pdfLink like   '%'+@Search+'%'  )
- or (summaryHin like '%'+@Search+'%'  ) or (related like '%'+@Search+'%'  ) or (hwAvail like '%'+@Search+'%' ) ) and ((related like '%'+@Related+'%'  ) and  (langEng like '%'+@Language+'%'  ) 
- )  order by bnameeng asc
- end
- else if @Author<>'null' and  @Related='null' and @Language='null' and  @Search='null'
- begin 
-  select * from Book_Table where  (authTransEng like '%'+@Author+'%')   order by bnameeng asc
- end
- else if @Author<>'null' and  @Related='null' and @Language='null' and  @Search<>'null'
- begin 
-  select * from Book_Table where ((bNameEng like '%'+@Search+'%') or (bnamehin like  '%'+@Search+'%') or (authTransEng like '%'+@Search+'%'  ) 
- or (authTransHin like '%'+@Search+'%'  )  or (pubEng like '%'+@Search+'%' ) or  (pubHin like '%'+@Search+'%' ) or (pdfAvail like '%' +@Search+'%' )
- or (ebookAvail  like '%'+@Search+'%'  )  or (langEng like   '%'+@Search+'%'  ) or (langHin like   '%'+@Search+'%'  ) or (pdfLink like   '%'+@Search+'%'  )
- or (summaryHin like '%'+@Search+'%'  ) or (related like '%'+@Search+'%'  ) or (hwAvail like '%'+@Search+'%' ))  and ((authTransEng like '%'+@Author+'%')  )  order by bnameeng asc
- end
- else if @Author<>'null' and  @Related='null' and @Language<>'null' and  @Search='null'
- begin 
-  select * from Book_Table where  ( (authTransEng like '%'+@Author+'%'  ) and  (langEng like '%'+@Language+'%'  )  )
-  order by bnameeng asc
- end
- else if @Author<>'null' and  @Related='null' and @Language<>'null' and  @Search<>'null'
- begin 
-  select * from Book_Table where ((bNameEng like '%'+@Search+'%') or (bnamehin like  '%'+@Search+'%') or (authTransEng like '%'+@Search+'%'  ) 
- or (authTransHin like '%'+@Search+'%'  )  or (pubEng like '%'+@Search+'%' ) or  (pubHin like '%'+@Search+'%' ) or (pdfAvail like '%' +@Search+'%' )
- or (ebookAvail  like '%'+@Search+'%'  )  or (langEng like   '%'+@Search+'%'  ) or (langHin like   '%'+@Search+'%'  ) or (pdfLink like   '%'+@Search+'%'  )
- or (summaryHin like '%'+@Search+'%'  ) or (related like '%'+@Search+'%'  ) or (hwAvail like '%'+@Search+'%' ))  and   ((authTransEng like '%'+@Author+'%') and
- (langEng like '%'+@Language+'%'  ) )
-  order by bnameeng asc
- end
- else if @Author<>'null' and  @Related<>'null' and @Language='null' and  @Search='null'
- begin 
-  select * from Book_Table where   ((related like '%'+@Related+'%'  ) and (authTransEng like '%'+@Author+'%') )
-  order by bnameeng asc
- end
- else if @Author<>'null' and  @Related<>'null' and @Language='null' and  @Search<>'null'
- begin 
-  select * from Book_Table where ((bNameEng like '%'+@Search+'%') or (bnamehin like  '%'+@Search+'%') or (authTransEng like '%'+@Search+'%'  ) 
- or (authTransHin like '%'+@Search+'%'  )  or (pubEng like '%'+@Search+'%' ) or  (pubHin like '%'+@Search+'%' ) or (pdfAvail like '%' +@Search+'%' )
- or (ebookAvail  like '%'+@Search+'%'  )  or (langEng like   '%'+@Search+'%'  ) or (langHin like   '%'+@Search+'%'  ) or (pdfLink like   '%'+@Search+'%'  )
- or (summaryHin like '%'+@Search+'%'  ) or (related like '%'+@Search+'%'  ) or (hwAvail like '%'+@Search+'%' ) ) and  ((related like '%'+@Related+'%'  ) and (authTransEng like '%'+@Author+'%') 
 
- )  order by bnameeng asc
- end
-  else if @Author<>'null' and  @Related<>'null' and @Language<>'null' and  @Search='null'
- begin 
-  select * from Book_Table where ( (related like '%'+@Related+'%'  ) and (authTransEng like '%'+@Author+'%') and  (langEng like '%'+@Language+'%'  ) )  order by bnameeng asc
- end
-  else if @Author<>'null' and  @Related<>'null' and @Language<>'null' and  @Search<>'null'
- begin 
-  select * from Book_Table where ((bNameEng like '%'+@Search+'%') or (bnamehin like  '%'+@Search+'%') or (authTransEng like '%'+@Search+'%'  ) 
- or (authTransHin like '%'+@Search+'%'  )  or (pubEng like '%'+@Search+'%' ) or  (pubHin like '%'+@Search+'%' ) or (pdfAvail like '%' +@Search+'%' )
- or (ebookAvail  like '%'+@Search+'%'  )  or (langEng like   '%'+@Search+'%'  ) or (langHin like   '%'+@Search+'%'  ) or (pdfLink like   '%'+@Search+'%'  )
- or (summaryHin like '%'+@Search+'%'  ) or (related like '%'+@Search+'%'  ) or (hwAvail like '%'+@Search+'%' )  ) and   ((related like '%'+@Related+'%'  ) and (authTransEng like '%'+@Author+'%') 
-  and  (langEng like '%'+@Language+'%'  ) 
- )  order by bnameeng asc
- end
+if @Author='null'
+begin
+SET @AuthorArg=''
+end
+else
+begin
+SET @AuthorArg=@Author
+end
+
+
+if @Related='null'
+begin
+SET @RelatedArg=''
+end
+else
+begin
+SET @RelatedArg=@Related
+end
+
+if @Language='null'
+begin
+SET @LanguageArg=''
+end
+else
+begin
+SET @LanguageArg=@Language
+end
+
+if @Search='null'
+begin
+SET @SearchArg=''
+end
+else
+begin
+SET @SearchArg=@Search
+end
+
+
+select * from Book_Table where 
+(
+((authTransEng like '%'+@AuthorArg+'%') or (authTransHin like N'%'+@AuthorArg+'%')) and
+(related like '%'+@RelatedArg+'%') and
+((langEng like '%'+@LanguageArg+'%') or (langHin like N'%'+@LanguageArg+'%')) and
+
+((bNameEng like '%'+@SearchArg+'%') or (bNameHin like N'%'+@SearchArg+'%') or (authTransEng like '%'+@SearchArg+'%') or (authTransHin like N'%'+@SearchArg+'%') or
+(pubEng like '%'+@SearchArg+'%') or (pubHin like N'%'+@SearchArg+'%') or (langEng like '%'+@SearchArg+'%') or (langHin like N'%'+@SearchArg+'%') or
+(related like '%'+@SearchArg+'%'))
+)
+order by bNameEng asc
+
 END
