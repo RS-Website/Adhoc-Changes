@@ -3,30 +3,23 @@
 //    new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'hi,kn', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
 //}
 
-var widthThreshold = 768;
+var widthThreshold = 700;
 
 myMenuOn = 1;
 function MenuToggle() {
   if ($(window).width() < widthThreshold) {
     $("#bs-example-navbar-collapse-1 li").width($(window).width() + "px");
-
-    $("#bs-example-navbar-collapse-1").toggle();
-    // setTimeout(function() {
-    //   var heightMenuMobile = $("#bs-example-navbar-collapse-1").height() + 100;
-    //   // alert(heightMenuMobile);
-    //   $("ul.nav").height(heightMenuMobile + "px");
-    // }, 301);
-
+    $("#bs-example-navbar-collapse-1").toggle(300);
     /*       if (myMenuOn == 1) {
-           $("#bs-example-navbar-collapse-1").hide(300);
-
-            myMenuOn = 0;
-        }
-        else {
-            $("#bs-example-navbar-collapse-1").show(300);
-
-            myMenuOn = 1;
-        }*/
+               $("#bs-example-navbar-collapse-1").hide(300);
+    
+                myMenuOn = 0;
+            }
+            else {
+                $("#bs-example-navbar-collapse-1").show(300);
+    
+                myMenuOn = 1;
+            }*/
   }
 }
 
@@ -170,8 +163,8 @@ $(document).ready(function($) {
   }
   myMenuOn = 1;
   /*$('a[href^="#"]').bind('click.smoothscroll', function (e) {
-        
-    });*/
+      
+  });*/
 });
 
 var menuItemClickHandler = function(e) {
@@ -181,24 +174,24 @@ var menuItemClickHandler = function(e) {
 
   /*
 
-    var topOffset = 0; //#top should default to 0 so no need to calculate the difference between top and top :)
-    if (target != "#top") { //If the 
-        var topOffset = $(e.target).offset().top;
-    }
+  var topOffset = 0; //#top should default to 0 so no need to calculate the difference between top and top :)
+  if (target != "#top") { //If the 
+      var topOffset = $(e.target).offset().top;
+  }
 
-    topOffset = $("#pageBanner").height();
+  topOffset = $("#pageBanner").height();
 
-    if ($(window).width() >= 500) {
-        topOffset += $("#bs-example-navbar-collapse-1").height();
-    }
+  if ($(window).width() >= 500) {
+      topOffset += $("#bs-example-navbar-collapse-1").height();
+  }
 
-   
+ 
 
-    $('html, body').stop().animate({
-        'scrollTop': topOffset
-    }, 900, 'swing', function () {
-        window.location.hash = target;
-    });*/
+  $('html, body').stop().animate({
+      'scrollTop': topOffset
+  }, 900, 'swing', function () {
+      window.location.hash = target;
+  });*/
   MenuToggle();
 };
 
