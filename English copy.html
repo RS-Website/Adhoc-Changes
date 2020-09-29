@@ -1,0 +1,266 @@
+﻿
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <head runat="server">
+            <title>Radhasoami, Soami Bagh</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link href="Content/bootstrap.min.css" rel="stylesheet" />
+            <link href="Content/site.css" rel="stylesheet" />
+            <link href="Content/playliststyle.css" rel="stylesheet" />
+            <script src="Scripts/jquery-3.3.1.min.js"></script>
+            <script src="Scripts/bootstrap.min.js"></script>
+            <script src="Scripts/customplaylist.js"></script>
+            <script src="Scripts/siteFeatures.js"></script>
+            <script src="Scripts/bootstrap-notify.min.js"></script>
+            <script src="Scripts/playlist.js"></script>
+           
+        </head>
+
+        <body style ="overflow-x:hidden ;text-align:justify;" >
+            <form id="form" runat="server" class="container-fluid">
+                <asp:ScriptManager runat="server" ID="script"></asp:ScriptManager>
+                <!-- Container (Header) -->
+                <div class="row">
+                    <nav class="container-fluid navbar-fixed-top">
+                        <div role="navigation" class="row container-fluid" id="pageBanner">
+                            <img src="Images/header.png" class="img-responsive HeaderDiv"/>
+                        </div>
+                        <div role="navigation" class="row container-fluid">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <div role="navigation" class="row navbar-header  container-fluid" id="menuButtonContainer">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" style="margin-top:0px; margin-bottom:0px;" onclick="MenuToggle();">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="glyphicon glyphicon-menu-hamburger" style ="z-index:-1;font-size:30px;"></span>
+                                </button>
+                                <a class="navbar-brand" href="#"></a>
+                            </div>
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div role="navigation" class="row collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:-5px;max-height:600px !important;min-height:600px !important;">
+                                <ul class="nav nav-tabs">
+                                    <li role="presentation" class="active" style="cursor: pointer"><a targetDiv="HomePage">Home Page</a></li>
+                                    <li role="presentation" style="cursor: pointer"><a targetDiv="Importantdates">Calendar</a></li>
+<!--                                    <li role="presentation" style="cursor: pointer"><a targetDiv="BiCent"><u style="color: #922B21;">Bi-Centenary</u></a></li>-->
+<!--                                    <li role="presentation" style="cursor: pointer"><a targetDiv="conduct">Guidelines</a></li>-->
+                                    <li role="presentation" style="cursor: pointer"><a targetDiv="SantSatGuru">Sant Sat Guru</a></li>
+                                    <li role="presentation" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" data-target="media" role="button" aria-haspopup="true" aria-expanded="false">Library&nbsp;&nbsp;<span class="caret"></span></a>
+                                        <ul id="media"  style ="z-index:999;" class="dropdown-menu">
+                                            <li><a targetDiv="Books" style="cursor: pointer">Books</a></li>
+                                            <li><a targetDiv="Audio" style="cursor: pointer">Prose</a></li>
+                                            <li><a targetDiv="Shabd" style="cursor: pointer">Poetry - RS Faith </a></li>
+                                            <li><a targetDiv="SantBani" style="cursor: pointer">Sant Bani</a></li>
+                                            <li><a targetDiv="Videoclips" style="cursor: pointer">Video Clips</a></li>
+                                            <li><a targetDiv="Videopoetry" style="cursor: pointer">Video Poetry</a></li>
+                                            <li><a targetDiv="ClassSatsang" style="cursor: pointer">Old Satsangs (1970s/Centenary)</a></li>
+                                        </ul>
+                                    </li>
+                                    <li role="presentation" style="cursor: pointer"><a targetDiv="HolyPlaces">Holy Places</a></li>
+                                    <li role="presentation" style="cursor: pointer"><a targetDiv="GenInfo">General Information</a></li>
+<!--
+                                    <li role="presentation" style="cursor: pointer"><a targetDiv="BookOrdering">Book Ordering</a></li>
+                                -->
+                                    <li role="presentation" style="cursor: pointer"><a targetDiv="ContactUs">Contact Us</a></li>
+                                       <li role="presentation" style="cursor: pointer"><a targetDiv="Playlist" id="sidebarCollapse">Playlist</a></li>
+                                   
+                                         
+                                </ul>
+                            </div><!-- /.navbar-collapse -->
+                        </div><!-- /.container-fluid -->
+                    </nav>
+                </div>
+
+                <!-- Container (LinksRow) -->
+                
+                        <!-- Sidebar Holder -->
+            <nav id="sidebarplaylist" style ="margin-top:180px;margin-left:10px;display:none;width:400px;background-color:blue;" class="active">
+                                <div class="sidebar-header" style="display:none;">
+                                    <div class="row">
+                                        <div class="col-xs-8">
+                                            <h3">PLAYLIST</h3>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <i id="sidebarRemove" class="glyphicon glyphicon-remove" style="cursor: pointer"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Playlist -->
+                                <div class="playlist-container" style="display:none;">
+                                    <div class="playlist-container column add-bottom">
+                                        <div id="mainwrap">
+                                            <div id="nowPlay">
+                                                <p class="left" id="npAction">No song selected</p>
+                                                <p class="right" id="npTitle"></p>
+                                            </div>
+                                            <div id="audiowrap">
+                                                <div id="audio0">
+                                                    <audio id="audio1" controls="controls">Your browser does not support HTML5 Audio!</audio>
+                                                </div>
+                                                <div id="tracks">
+                                                    <a id="btnPrev" style="color: black">&larr;</a>
+                                                    <a id="btnNext" style="color: black">&rarr;</a>
+                                                </div>
+                                            </div>
+                                            <div id="plwrap">
+                                                <ul id="plList"></ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </nav>
+
+                            
+                              
+                               <nav class="navbar fixed-bottom navbar-light bg-info" id="divMediaPlayer" style="display:none;">
+                                <div>
+                                    <label class="lead bg-primary" style="width:100%;padding:10px;margin-left:-10px;margin-right:-10px;">Playlist</label>
+                                    <span id="mediaPlayerSpan"></span>
+                                    <br />
+                                    <audio controls id="audioMediaPlayer">
+                                    </audio>
+                                    <br />
+                                
+                                    <button id="prevAnchor" class="btn border playlistButton" style="margin-left:2px;">Previous</button>
+                                    &nbsp;
+                                    <button id="nextAnchor" class="btn border playlistButton">Next</button>
+                                
+                                
+                                    <button id="btnShowPlaylist" class="btn border playlistButton" style="float:right;" state="off">Show Playlist</button>
+                                    
+                                
+                                    <ul class="list-group" id="lstPlaylist" style="margin-top:5px;">
+                                      
+                                    </ul>
+                                </div>
+                                </nav>
+                                
+                                <div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" style="display:none;" role="alert">
+                                    <button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>
+                                    <span data-notify="icon"></span>
+                                    <span data-notify="title">{1}</span>
+                                    <span data-notify="message">{2}</span>
+                                    <div class="progress" data-notify="progressbar">
+                                        <div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                                    </div>
+                                    <a href="{3}" target="{4}" data-notify="url"></a>
+                                </div>
+
+                                <div id="Playlist" class="row " divType="pageContent">
+                                    <div id="divEmptyPlaylist" class="alert alert-danger" style="display:none;">
+                                        There are no items in playlist! 
+                                    </div>
+                                </div>
+
+
+
+                            <div id="snackbar">This song is already added</div>
+                            <div>
+                            </div>
+                            <style>
+                                .overflow {
+                                    overflow-x: hidden;
+                                }
+                            </style>
+             
+            </form>
+            <script>
+
+                function logcheck(logname) {
+                    var name = '<%= Session("Username") %>';
+
+                    if (name == '') {
+                        window.open("login.aspx", "_self");
+                    }
+                    else {
+                        window.open(logname, "_blank");
+
+                    }
+
+
+                }
+                function logcheckforbook() {
+                    var gridView = document.getElementById('<%= OrderBok.ClientID %>');
+                    for (var i = 1; i < gridView.rows.length; i++) {
+                        var inputs = gridView.rows[i].getElementsByTagName('input');
+                        if (inputs != null) {
+                            if (inputs[0].type == "checkbox") {
+                                if (inputs[0].checked) {
+                                    document.getElementById("lblerr").style.display = "none";
+                                    var statusId = "";
+                                //  var name = '<%= Session("Username") %>';
+                                //       if (name == '') {
+                                //           document.getElementById("lblorderbook").style.display = "none";
+                                //           window.open("login.aspx", "_self");
+                                //       }
+                                //       else {
+                                          $("input[name$=CheckBox1]:checked").each(function () {
+                                              var $status = $(this).closest("tr");
+                                              statusId += "," + $status.find(".status").text() + ",";
+                                              statusId = statusId.replace(/^,|,$/g, '');
+                                          });
+                                          $.ajax({
+                                              type: "POST",
+                                              contentType: "application/json; charset=utf-8",
+                                              url: "English.aspx/SaveData",
+                                              data: "{'statusId':'" + statusId + "' }",
+                                              dataType: "json",
+                                              success: function (data) {
+                                              },
+                                              error: function (result) {
+                                                  alert("Error");
+                                              }
+                                          });
+
+                                          window.open('SaveDeliveryAddress.aspx', "_blank");
+                                      //}
+                                      return false;
+                                  }
+                                  else {
+                                  
+                                    document.getElementById("lblerr").style.display = "block";
+                                    document.getElementById("lblerr").innerHTML = "Please select books to order"
+                                      return false;
+                                  }
+                              }
+                          }
+                      }
+                  }
+
+
+                  function functionplay() {
+
+                      var audio = document.getElementById('a');
+                      audio.controls = false;
+                  }
+                //   function downcheck(downloadlink) {
+                //       var name = '<%= Session("Username") %>';
+                //     if (name == '') {
+                //         window.open("login.aspx", "_self");
+                //     }
+                //     else {
+                //         var file_path = downloadlink;
+                //         var a = document.createElement('A');
+                //         a.href = file_path;
+                //         a.download = file_path.substr(file_path.lastIndexOf('/') + 1);
+                //         document.body.appendChild(a);
+                //         a.click();
+                //         document.body.removeChild(a);
+                //     }
+                // }
+                window.onunload = function () {
+                    '<%= Session("Username") %>' == '';
+}
+$('#sidebarCollapse').on('click', function () {
+                    document.getElementById("sidebarplaylist").style.display = "block";
+                    $('#sidebarplaylist, #content').toggleClass('active');
+                    $('.collapse.in').toggleClass('in');
+                    $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+                });
+                $('#sidebarRemove').on('click', function () {
+                    document.getElementById("sidebarplaylist").style.display = "none";
+                    $('#sidebarplaylist, #content').toggleClass('active');
+                    $('.collapse.in').toggleClass('in');
+                    $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+                });
+            </script>
+       </body>
+
+</html>
